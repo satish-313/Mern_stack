@@ -13,7 +13,7 @@ const httpLink = createHttpLink({
 })
 
 const client = new ApolloClient({
-  link: 'http://localhost:5500',
+  link: httpLink,
   cache: new InMemoryCache()
 })
 

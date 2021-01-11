@@ -1,0 +1,9 @@
+.page-title {
+  display: block !important;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.page-title h4 {
+  font-size: 2rem;
+}
