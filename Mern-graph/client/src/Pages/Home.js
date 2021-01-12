@@ -28,6 +28,8 @@ const FETCH_POST_QUERY = gql`
 `
 
 function Home() {
+
+
   const { loading, data } = useQuery(FETCH_POST_QUERY);
 
   if (loading) {

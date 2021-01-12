@@ -12,17 +12,23 @@ import Register from './Pages/Register'
 
 // components
 import Menubar from './Components/Menubar'
+import AuthRoute from './utils/AuthRoute'
+
+// global context
+import { AuthProvider } from './context/auth'
 
 function App() {
   return (
-    <Router>
-      <Container>
-        <Menubar />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-      </Container>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Container>
+          <Menubar />
+          <Route exact path="/" component={Home} />
+          <AuthRoute exact path="/login" component={Login} />
+          <AuthRoute exact path="/register" component={Register} />
+        </Container>
+      </Router>
+    </AuthProvider>
   );
 }
 
