@@ -1,49 +1,29 @@
-import React, { useContext } from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
-import { Grid } from 'semantic-ui-react'
+import React, { useContext } from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { Grid, Transition } from "semantic-ui-react";
 
 // local component
-import PostCard from '../Components/PostCard'
-import Loading from '../Pages/Loading'
-import {AuthContext} from '../context/auth'
-import PostForm from '../Components/PostForm'
-
-// function
-const FETCH_POST_QUERY = gql`
-{
-  getPosts{
-    id 
-    body 
-    createdAt 
-    username 
-    likeCount
-    likes{
-      username
-    }
-    commentCount
-    comments{
-      id username createdAt body
-    }
-  }
-} 
-`
+import PostCard from "../Components/PostCard";
+import Loading from "../Pages/Loading";
+import { AuthContext } from "../context/auth";
+import PostForm from "../Components/PostForm";
+import { FETCH_POST_QUERY } from "../utils/graphql";
 
 function Home() {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   const { loading, data } = useQuery(FETCH_POST_QUERY);
 
   if (loading) {
-    console.log(loading)
+    console.log(loading);
     return (
       <div>
         <Loading />
       </div>
-    )
+    );
   }
-  else {
-    const {getPosts:posts} = data
+  if (data) {
+    const { getPosts: posts } = data;
     return (
       <Grid columns={3}>
         <Grid.Row className="page-title">
@@ -52,17 +32,19 @@ function Home() {
         <Grid.Row>
           {user && (
             <Grid.Column>
-              <PostForm/>
+              <PostForm />
             </Grid.Column>
           )}
-          {posts && posts.map(post => (
-            <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
-              <PostCard post={post} />
-            </Grid.Column>
-          ))}
+          <Transition.Group duration={2000}>
+            {posts.map((post) => (
+              <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
+                <PostCard post={post} />
+              </Grid.Column>
+            ))}
+          </Transition.Group>
         </Grid.Row>
       </Grid>
-    )
+    );
   }
 }
 
