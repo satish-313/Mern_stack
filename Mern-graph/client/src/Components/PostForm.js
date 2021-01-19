@@ -18,7 +18,7 @@ const PostForm = () => {
       const data = cache.readQuery({
         query: FETCH_POST_QUERY
       })
-      console.log(cache.writeQuery({query: FETCH_POST_QUERY,data:{getPosts:[result.data.createPost,...data.getPosts]}}))
+      cache.writeQuery({query: FETCH_POST_QUERY,data:{getPosts:[result.data.createPost,...data.getPosts]}})
       values.body = "";
     },
     
