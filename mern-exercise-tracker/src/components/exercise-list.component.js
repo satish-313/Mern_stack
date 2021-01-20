@@ -29,6 +29,7 @@ export default class ExerciseList extends Component {
         this.setState({ exercises: res.data })
       })
       .catch(err => console.log(err))
+    console.log("list")
   }
 
   deleteExercise(id) {
